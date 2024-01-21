@@ -1,0 +1,94 @@
+main {
+    padding: 80px 0;
+}
+
+.card {
+    &.p-card {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        img {
+            &.card-img-top {
+                width: 354px;
+                height: 190px;
+                transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
+                transform: scale(0.8);
+
+                &:hover {
+                    transform: scale(1);
+                    transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
+                }
+            }
+        }
+
+        margin-bottom: 20px;
+    }
+}
+
+.navbar {
+    ul {
+        li {
+            a {
+                position: relative;
+
+                span.cart-icon {
+                    position: absolute;
+                    left: 30px;
+                    right: auto;
+                    top: 0px;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}
+
+.shake {
+    animation: shake 0.5s;
+    animation-iteration-count: 1s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
