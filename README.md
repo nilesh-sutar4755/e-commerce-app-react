@@ -32,4 +32,6 @@ export default {
 ## Installed Deps
 
 1. npm i -D sass sass-loader `sass loader`
-2.
+2. npm i `react-router-dom`
+3. npm i `bootstrap jquery popper.js`
+4. npm i `axios`
