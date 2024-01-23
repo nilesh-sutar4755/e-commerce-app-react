@@ -6,7 +6,11 @@ const Cart = () => {
   const { context, handleCart } = useCart();
 
   const removeItem = (product: Product, action: string) => {
-    if (confirm("Are you sure, you want to delete this item ?")) {
+    let message =
+      action == "remove"
+        ? "Are you sure, you want to delete this item ?"
+        : "Are you sure, you want to delete all items ?";
+    if (confirm(message)) {
       handleCart(product, action);
     }
   };
@@ -94,7 +98,7 @@ const Cart = () => {
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleCart(context.cartItems[0], "empty")}
+                    onClick={() => removeItem(context.cartItems[0], "empty")}
                   >
                     Empty Cart
                   </button>

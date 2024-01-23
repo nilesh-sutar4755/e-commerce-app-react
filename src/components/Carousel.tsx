@@ -22,7 +22,7 @@ const Carousel = ({ data }: Props) => {
       data-bs-ride="carousel"
     >
       <div className="carousel-indicators">
-        {carouselItems.map((item: any, index: number) => (
+        {carouselItems.map((index: number) => (
           <button
             key={index}
             type="button"
