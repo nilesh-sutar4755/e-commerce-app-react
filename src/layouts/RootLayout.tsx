@@ -3,26 +3,20 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
 import products from "../data/products";
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
-  isAddedToCart: boolean;
-  quantity: number;
-}
+import { Product } from "../utils/Interfaces";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const RootLayout = () => {
   const [_products, setProducts] = useState<Product[]>([...products]);
   const [cartCount, setCartCount] = useState(0);
   const [cartItems, setCartItems] = useState<Product[]>([]);
+
+  useEffect(() => {
+    let products = JSON.parse(localStorage.getItem("products") as any) || [
+      ..._products,
+    ];
+    setProducts([...products]);
+  }, []);
 
   useEffect(() => {
     const cartItems = _products.filter((item) => item.isAddedToCart);
@@ -35,6 +29,7 @@ const RootLayout = () => {
       <NavBar cartCount={cartCount} />
       <main>
         <div className="container">
+          <Breadcrumbs />
           <Outlet context={{ _products, setProducts, cartItems }} />
         </div>
       </main>

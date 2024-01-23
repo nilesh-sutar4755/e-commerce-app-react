@@ -1,12 +1,18 @@
 import { Link, useParams } from "react-router-dom";
-import useCart from "../hooks/useCart";
-import { useEffect, useState } from "react";
-import { Product } from "../layouts/RootLayout";
+import useCart from "../../hooks/useCart";
+import { useEffect, useRef, useState } from "react";
+import Reviews from "./Reviews";
+import { Product } from "../../utils/Interfaces";
 
 const ProductDetails = () => {
   const { context, handleCart } = useCart();
   const [product, setProductItem] = useState<Product | undefined>();
   const { id } = useParams();
+
+  const ref = useRef<HTMLDivElement>(null);
+  const handleClick = () => {
+    ref?.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     // Check if context and _products are available
@@ -39,6 +45,18 @@ const ProductDetails = () => {
                   </div>
                   <div className="col-md-8">
                     <h4 className="card-title">{product?.title}</h4>
+                    <div>
+                      <span
+                        onClick={handleClick}
+                        className="badge bg-success cursor-pointer my-3 me-3 p-2 text-white d-inline-flex align-items-center"
+                      >
+                        {product?.rating.toFixed(1)}
+                        <span className="material-icons ms-1 fs-6">star</span>
+                      </span>
+                      <span className="badge bg-primary-subtle my-3 p-2 text-black">
+                        {product?.category}
+                      </span>
+                    </div>
                     <p className="card-text">{product?.description}</p>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item">
@@ -84,6 +102,10 @@ const ProductDetails = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="reviews" ref={ref}>
+              <h5 className="mb-3">Reviews</h5>
+              <Reviews id={product.id.toString()} />
             </div>
           </div>
         )}

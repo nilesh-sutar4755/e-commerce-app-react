@@ -1,4 +1,4 @@
-import { Product } from "../layouts/RootLayout";
+import { Product } from "../utils/Interfaces";
 
 interface Props {
   onScroll: any;
@@ -34,7 +34,9 @@ function ListingPageComponent({ onScroll, listInnerRef, userList }: Props) {
                       />
                     </div>
                     <div className="col-md-8">
-                      <h4 className="card-title">{product?.title}</h4>
+                      <h4 className="card-title text-capitalize">
+                        {product?.title}
+                      </h4>
                       <p className="card-text">{product?.description}</p>
                       <ul className="list-group list-group-flush">
                         <li className="list-group-item">
