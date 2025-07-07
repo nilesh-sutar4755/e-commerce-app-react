@@ -5,6 +5,9 @@ import PageNotFound from "../pages/PageNotFound";
 import Cart from "../pages/cart/Cart";
 import Products from "../pages/products/Products";
 import ProductDetails from "../pages/products/ProductDetails";
+import AccessDenied from "../pages/AccessDenied";
+import ProtectedRoutes from "./ProtectedRoutes";
+import SignIn from "../pages/auth/SignIn";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: <ProtectedRoutes element={<Cart />} />,
       },
       {
         path: "/products",
@@ -27,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "/products/:id",
         element: <ProductDetails />,
+      },
+      {
+        path: "/access-denied",
+        element: <AccessDenied />,
+      },
+      {
+        path: "/sign-in",
+        element: <SignIn />,
       },
       {
         path: "*",

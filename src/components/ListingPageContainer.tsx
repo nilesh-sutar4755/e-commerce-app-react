@@ -1,12 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import ListigPageComponent from "./ListigPageComponent";
 import axios from "axios";
+import { ProductDataLIst } from "../utils/Interfaces";
 
 function ListingPageContainer() {
   const listInnerRef = useRef();
   const [currPage, setCurrPage] = useState(1);
   const [prevPage, setPrevPage] = useState(0);
-  const [dataList, setDataList] = useState<any>([]);
+  const [dataList, setDataList] = useState<ProductDataLIst[]>([]);
   const [lastList, setLastList] = useState(false);
 
   useEffect(() => {

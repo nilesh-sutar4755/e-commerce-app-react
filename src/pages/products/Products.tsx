@@ -4,7 +4,7 @@ import { Product } from "../../utils/Interfaces";
 
 const Products = () => {
   const { context, handleCart } = useCart();
-
+  console.log(context)
   return (
     <div className="row">
       {context?._products?.map((product: Product, index: number) => (

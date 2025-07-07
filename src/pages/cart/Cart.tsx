@@ -1,12 +1,13 @@
 import useCart from "../../hooks/useCart";
 import { Link } from "react-router-dom";
 import { Product } from "../../utils/Interfaces";
+import { useMemo } from "react";
 
 const Cart = () => {
   const { context, handleCart } = useCart();
 
   const removeItem = (product: Product, action: string) => {
-    let message =
+    const message =
       action == "remove"
         ? "Are you sure, you want to delete this item ?"
         : "Are you sure, you want to delete all items ?";
@@ -16,7 +17,7 @@ const Cart = () => {
   };
 
   const updateQuantity = (product: Product, action: string) => {
-    let newProduct = product;
+    const newProduct = product;
     if (action == "add") {
       newProduct.quantity += 1;
     } else if (action == "remove") {
@@ -30,9 +31,14 @@ const Cart = () => {
     handleCart(newProduct, "updateQuantity");
   };
 
-  const grandTotal = context.cartItems.reduce(
-    (acc: any, product: Product) => acc + product.quantity * product.price,
-    0
+  const grandTotal: number = useMemo(
+    () =>
+      context.cartItems.reduce(
+        (acc: number, product: Product) =>
+          acc + product.quantity * product.price,
+        0
+      ),
+    [context]
   );
 
   return (

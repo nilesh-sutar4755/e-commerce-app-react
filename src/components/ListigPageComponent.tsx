@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { Product } from "../utils/Interfaces";
 
 interface Props {
-  onScroll: any;
-  listInnerRef: any;
+  onScroll: () => void;
+  listInnerRef: React.MutableRefObject<any>;
   userList: any;
 }
 function ListingPageComponent({ onScroll, listInnerRef, userList }: Props) {
@@ -13,7 +14,7 @@ function ListingPageComponent({ onScroll, listInnerRef, userList }: Props) {
         ref={listInnerRef}
         style={{ height: "100vh", overflowY: "auto" }}
       >
-        {userList.map((product: Product, index: any) => {
+        {userList.map((product: Product, index: number) => {
           return (
             <div
               key={index}
@@ -34,9 +35,11 @@ function ListingPageComponent({ onScroll, listInnerRef, userList }: Props) {
                       />
                     </div>
                     <div className="col-md-8">
-                      <h4 className="card-title text-capitalize">
-                        {product?.title}
-                      </h4>
+                      <Link to={product.id.toString()}>
+                        <h4 className="card-title text-capitalize">
+                          {product?.title}
+                        </h4>
+                      </Link>
                       <p className="card-text">{product?.description}</p>
                       <ul className="list-group list-group-flush">
                         <li className="list-group-item">

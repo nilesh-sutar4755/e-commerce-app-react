@@ -5,7 +5,7 @@ import { Product } from "../utils/Interfaces";
 
 const useCart = () => {
     const context: any = useOutletContext();
-
+    console.log(context)
     const handleCart = useCallback((product?: Product, action = "add") => {
         const isProductInCart = context._products.some((p: Product) => p.id === product?.id);
 

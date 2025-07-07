@@ -22,14 +22,15 @@ const Carousel = ({ data }: Props) => {
       data-bs-ride="carousel"
     >
       <div className="carousel-indicators">
-        {carouselItems.map((index: number) => (
+        {carouselItems.map((item: Product, index: number) => (
           <button
-            key={index}
+            key={item.id}
             type="button"
             data-bs-target="#carouselExampleIndicators"
             data-bs-slide-to={index}
             className={index === activeIndex ? "active" : ""}
             aria-label={`Slide ${index + 1}`}
+            onClick={() => setActiveIndex(index)}
           ></button>
         ))}
       </div>

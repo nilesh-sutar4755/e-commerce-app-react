@@ -12,9 +12,10 @@ const RootLayout = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
   useEffect(() => {
-    let products = JSON.parse(localStorage.getItem("products") as any) || [
-      ..._products,
-    ];
+    // let products = (JSON.parse(
+    //   localStorage.getItem("products") || "[]"
+    // ) as Product[]) || 
+    // [..._products];
     setProducts([...products]);
   }, []);
 
