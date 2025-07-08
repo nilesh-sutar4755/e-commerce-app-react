@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  create-pr-master-to-main:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch main branch
+        run: git fetch origin main:main
+
+      - name: Create Pull Request from master to main
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          head: master
+          title: 'Sync master to main'
+          body: |
+            Automated PR to merge changes from master into main branch.
+          draft: false
+
+  build-and-deploy:
+    if: github.ref == 'refs/heads/main' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Add your build steps here - for example npm install/build for React, Vue, etc.
+      - name: Install dependencies
+        run: npm ci
+      - name: Build UI
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Change this if your build output is in a different directory
