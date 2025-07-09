@@ -1,11 +1,23 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import reactLogo from "../assets/react.svg";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
 interface Props {
   cartCount: number;
 }
 const NavBar = ({ cartCount }: Props) => {
   const [isClass, setClass] = useState(false);
+  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    if (authenticated) {
+      setAuthenticated(false);
+      navigate('/'); // Redirect to home after sign out
+    } else {
+      navigate('/sign-in'); // Navigate to sign in page
+    }
+  }
 
   useEffect(() => {
     setClass(true);
@@ -54,6 +66,11 @@ const NavBar = ({ cartCount }: Props) => {
                     </span>
                   )}
                 </NavLink>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" onClick={handleSignIn} >
+                  Sign {authenticated ? "Out" : "In"}
+                </a>
               </li>
             </ul>
           </div>

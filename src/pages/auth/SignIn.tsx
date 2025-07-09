@@ -6,6 +6,7 @@ import AuthContext from "../../contexts/AuthContext";
 const SignIn = () => {
   const redirectTo = useRedirectUrl();
   const navigateTo = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const { setAuthenticated } = useContext(AuthContext);
 
@@ -52,7 +53,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="row justify-content-center">
+    <div className="row justify-content-center signIn-container">
       <div className="col-md-6 col-sm-12">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="my-3">
@@ -76,15 +77,20 @@ const SignIn = () => {
             <label htmlFor="password" className="mb-2">
               Password
             </label>
+            <div className="password-input">
             <input
               id="password"
-              type="text"
+              type={showPassword ? "text" : "password"}
               className="form-control"
               value={formField.password}
               onChange={(e) =>
                 setFormField({ ...formField, password: e.target.value })
               }
             />
+            <span className="material-icons" style={{ cursor: "pointer" }} onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? "visibility_off" : "visibility"}
+            </span>
+            </div>
             {error.password && (
               <p className="alert alert-danger p-2 my-2">{error.password}</p>
             )}
