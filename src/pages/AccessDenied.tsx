@@ -1,9 +1,9 @@
-// import { Link } from "react-router-dom";
+
+import { Link, useSearchParams } from "react-router-dom";
 
 const AccessDenied = () => {
-  // const [searchParams, setSearchParams] = useSearchParams({});
-  // const searchParams;
-  // const redirectTo = searchParams.get("redirectTo");
+  const [searchParams] = useSearchParams({});
+  const redirectTo = searchParams.get("redirectTo");
 
   return (
     <div>
@@ -14,7 +14,7 @@ const AccessDenied = () => {
         maiores? Eos dolores quae corrupti molestias repellat possimus
         repellendus numquam in maiores laborum!
       </p>
-      {/* <Link to={`/sign-in?redirectTo=${redirectTo}`}>Login to continue</Link> */}
+      <Link to={`/sign-in?redirectTo=${redirectTo}`}>Login to continue</Link>
     </div>
   );
 };

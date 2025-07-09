@@ -5,7 +5,7 @@ import AuthContext from "./contexts/AuthContext";
 import { useState } from "react";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState<boolean>(true);
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
   return (
     <>
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>

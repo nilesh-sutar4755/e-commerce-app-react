@@ -41,6 +41,10 @@ const Cart = () => {
     [context]
   );
 
+  const cgst: number = useMemo(() => grandTotal * 0.09, [grandTotal]); // 9% CGST
+  const sgst: number = useMemo(() => grandTotal * 0.09, [grandTotal]); // 9% SGST
+  const finalTotal: number = useMemo(() => grandTotal + cgst + sgst, [grandTotal, cgst, sgst]);
+
   return (
     <div>
       {context.cartItems.length > 0 ? (
@@ -100,8 +104,22 @@ const Cart = () => {
             </tbody>
             <tfoot>
               <tr>
-                <td colSpan={3}></td>
-                <td>
+                <td colSpan={4}></td>
+                <td><strong>Subtotal:</strong></td>
+                <td><strong>₹{grandTotal.toFixed(2)}</strong></td>
+              </tr>
+              <tr>
+                <td colSpan={4}></td>
+                <td>CGST (9%):</td>
+                <td>₹{cgst.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td colSpan={4}></td>
+                <td>SGST (9%):</td>
+                <td>₹{sgst.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td colSpan={2}>
                   <button
                     className="btn btn-danger"
                     onClick={() => removeItem(context.cartItems[0], "empty")}
@@ -109,10 +127,11 @@ const Cart = () => {
                     Empty Cart
                   </button>
                 </td>
-                <td>
+                <td colSpan={2}>
                   <button className="btn btn-success">Checkout</button>
                 </td>
-                <td>Grand Total :{grandTotal}</td>
+                <td><strong>Final Total:</strong></td>
+                <td><strong>₹{finalTotal.toFixed(2)}</strong></td>
               </tr>
             </tfoot>
           </table>
