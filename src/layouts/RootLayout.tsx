@@ -27,9 +27,9 @@ const RootLayout = () => {
 
   return (
     <>
-      <NavBar cartCount={cartCount} />
+      <NavBar cartCount={cartCount} products={_products} />
       <main>
-        <div className="container">
+        <div className="container-fluid">
           <Breadcrumbs />
           <Outlet context={{ _products, setProducts, cartItems }} />
         </div>
