@@ -12,27 +12,30 @@ const Products = () => {
 
   const applyFilters = (filters: Filter & { price?: number }) => {
     let filtered = [...products];
-    
+
     // Apply brand filter
     if (filters.brand && filters.brand !== "all") {
       filtered = filtered.filter(product => product.brand === filters.brand);
     }
-    
+
     // Apply category filter
     if (filters.category && filters.category !== "all") {
       filtered = filtered.filter(product => product.category === filters.category);
     }
-    
+
     // Apply rating filter
     if (filters.rating && filters.rating !== "all") {
-      filtered = filtered.filter(product => product.rating >= Number(filters.rating));
+      filtered = filtered.filter(product =>
+        Math.max(product.rating).toFixed() == Math.max(Number(filters.rating)).toFixed()
+      );
     }
-    
+    console.log(filters, filtered);
+
     // Apply price filter
     if (filters.price !== undefined && filters.price < 1000) {
       filtered = filtered.filter(product => product.price <= filters.price!);
     }
-    
+
     setFilteredProducts(filtered);
   };
 
@@ -43,16 +46,16 @@ const Products = () => {
       setFilteredProducts(products); // Directly set to all products
       return;
     }
-    
+
     // If empty object is passed (clear all filters), reset everything
     if (Object.keys(value).length === 0) {
       setActiveFilters({});
       setFilteredProducts(products); // Directly set to all products
       return;
     }
-    
+
     const newFilters = { ...activeFilters, ...value };
-    
+
     // Handle clearing individual filters when "all" is selected
     if (value.brand === "all") {
       delete newFilters.brand;
@@ -63,7 +66,7 @@ const Products = () => {
     if (value.rating === "all") {
       delete newFilters.rating;
     }
-    
+
     setActiveFilters(newFilters);
     applyFilters(newFilters);
   };
@@ -101,15 +104,15 @@ const Products = () => {
     <div className="row overflow-hidden">
       <div className="col-md-3">
         <h5>Showing ({filteredProducts.length}) Results</h5>
-        <Filters 
-          products={products} 
-          onFilterChange={handleFilterChange} 
+        <Filters
+          products={products}
+          onFilterChange={handleFilterChange}
           onPriceChange={handlePriceChange}
           onClearFilters={handleClearFilters}
         />
       </div>
       <div className="col-md-9">
-        <div className="row">
+        <div className="row mt-3 pt-3">
           {filteredProducts.map((product: Product, index: number) => (
             <div className="col-md-4 mb-3" key={index}>
               <div className="card p-card h-100">
@@ -121,9 +124,25 @@ const Products = () => {
                   />
                 </Link>
                 <div className="card-body d-flex flex-column">
-                  <h4 className="card-title text-truncate" title={product.title}>
-                    {product.title}
-                  </h4>
+                  <div>
+                    <h4 className="card-title text-truncate" title={product.title}>
+                      {product.title}
+                    </h4>
+                    <span className="badge bg-warning-subtle my-3 p-2 text-black">
+                      {product?.brand}
+                    </span>
+                  </div>
+                  <div>
+                    <span
+                      className="badge bg-success cursor-pointer my-3 me-3 p-2 text-white d-inline-flex align-items-center"
+                    >
+                      {product?.rating.toFixed(1)}
+                      <span className="material-icons ms-1 fs-6">star</span>
+                    </span>
+                    <span className="badge bg-primary-subtle my-3 p-2 text-black">
+                      {product?.category}
+                    </span>
+                  </div>
                   <p
                     className="card-text text-truncate flex-grow-1"
                     title={product.description}

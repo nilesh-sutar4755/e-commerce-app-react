@@ -44,7 +44,12 @@ const ProductDetails = () => {
                     />
                   </div>
                   <div className="col-md-8">
-                    <h4 className="card-title">{product?.title}</h4>
+                    <div>
+                      <h4 className="card-title">{product?.title}</h4>
+                        <span className="badge bg-warning-subtle my-3 p-2 text-black">
+                        {product?.brand}
+                      </span>
+                    </div>
                     <div>
                       <span
                         onClick={handleClick}

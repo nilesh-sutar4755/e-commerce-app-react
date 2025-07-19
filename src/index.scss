@@ -15,10 +15,9 @@ body {
 
         img {
             &.card-img-top {
-                width: 354px;
                 height: 190px;
                 transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
-                transform: scale(0.8);
+                transform: scale(0.9);
 
                 &:hover {
                     transform: scale(1);
@@ -129,6 +128,10 @@ body {
             cursor: pointer;
         }
     }
+}
+
+.w-40px {
+    width: 40px;
 }
 
 @keyframes shake {
